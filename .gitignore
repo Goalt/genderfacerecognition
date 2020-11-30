@@ -1,6 +1,7 @@
 archive.zip
 age_gender.csv
 TODO
+__pycache__/
 images/
 .vscode/
 train/
