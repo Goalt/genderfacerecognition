@@ -9,12 +9,14 @@ import torch
 
 class FaceRecognitionPipeline():
     def __init__(self, model, haarConfFile, inputSize):
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
         self.model = model
         self.inputSize = inputSize
         self.faceCascade = cv2.CascadeClassifier(haarConfFile)
 
         self.model.eval()
-        self.model = self.model.cuda()
+        self.model = self.model.to(self.device)
 
     def faceDetection(self, image):
         # return faceBorder
@@ -47,7 +49,7 @@ class FaceRecognitionPipeline():
             input.append(testTransforms(i))
         input = torch.stack(input) 
 
-        input = input.cuda()
+        input = input.to(self.device)
         output = self.model(input.to(torch.float32))
         output = torch.sigmoid(output)
         result = torch.round(output)
