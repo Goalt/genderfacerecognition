@@ -7,7 +7,7 @@ import numpy as np
 
 @st.cache(hash_funcs={FaceRecognitionPipeline: lambda _: None, GenderRecognitionModelV2: lambda _: None})
 def prepare(modelPath, haarConfFile, inputSize):
-    model = torch.load(modelPath)
+    model = torch.load(modelPath, map_location=torch.device('cpu') )
     gfcr = FaceRecognitionPipeline(model, haarConfFile, inputSize)
     return gfcr
 
