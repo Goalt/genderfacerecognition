@@ -17,6 +17,7 @@ if __name__ == '__main__':
     gfcr = prepare('./models/gfcr_v4.pt', './models/haarcascade_frontalface_default.xml', (48, 48))
 
 
+    st.header('Gender Recognition with face detection')
     uploadedFile = st.file_uploader('Upload image')
     if uploadedFile is not None:
         # Convert the file to an opencv image.
@@ -41,3 +42,20 @@ if __name__ == '__main__':
                 caption.append('{:.3}'.format(res[2][i].item()))
 
             st.image(inputImages, caption=caption, clamp=True, width=100)
+    
+
+    st.header('Without Face Detection (immediatly pass to neural net)')
+    uploadedFile = st.file_uploader('Upload image (without face detection)')
+    if uploadedFile is not None:
+        # Convert the file to an opencv image.
+        fileBytes = np.asarray(bytearray(uploadedFile.read()), dtype=np.uint8)
+        opencvImage = cv2.imdecode(fileBytes, 1)
+
+        st.write('Original Image:')
+        st.image(opencvImage, width=224, channels="BGR")
+
+        res = gfcr.onlyForwardPass(opencvImage)
+        image = res[0][0][0].numpy()
+        cap = '{:.3}'.format(res[2].item())
+        st.text(cap)
+        st.image(image, caption=cap, width=100)
