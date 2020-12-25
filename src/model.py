@@ -57,6 +57,24 @@ class FaceRecognitionPipeline():
         input = input.cpu()
         return (input, result, output)
 
+    def onlyForwardPass(self, image):
+        testTransforms = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Resize(self.inputSize),
+            transforms.Grayscale(num_output_channels=1),
+            # transforms.Normalize((0.1307,), (0.3081,))
+        ])
+
+        input = [testTransforms(image)]
+        input = torch.stack(input)
+        input = input.to(self.device)
+        output = self.model(input.to(torch.float32))
+        output = torch.sigmoid(output)
+        result = torch.round(output)
+        
+        input = input.cpu()
+        return (input, result, output)
+
 
 class GenderRecognitionModel(nn.Module):
     def __init__(self):
