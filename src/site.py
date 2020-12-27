@@ -3,6 +3,7 @@ from model import FaceRecognitionPipeline, GenderRecognitionModelV2
 import cv2
 import torch
 import numpy as np
+from tempfile import NamedTemporaryFile
 
 
 @st.cache(hash_funcs={FaceRecognitionPipeline: lambda _: None, GenderRecognitionModelV2: lambda _: None})
@@ -18,11 +19,13 @@ if __name__ == '__main__':
 
 
     st.header('Gender Recognition with face detection')
-    uploadedFile = st.file_uploader('Upload image')
+    uploadedFile = st.file_uploader('Upload image', type=['jpg', 'jpeg', 'png'])
+    tempFile = NamedTemporaryFile(delete=False)
     if uploadedFile is not None:
         # Convert the file to an opencv image.
-        fileBytes = np.asarray(bytearray(uploadedFile.read()), dtype=np.uint8)
-        opencvImage = cv2.imdecode(fileBytes, 1)
+        tempFile.write(uploadedFile.getvalue())
+        tempFile.close()
+        opencvImage = cv2.imread(tempFile.name)
 
         st.write('Original Image:')
         st.image(opencvImage, width=224, channels="BGR")
@@ -45,11 +48,13 @@ if __name__ == '__main__':
     
 
     st.header('Without Face Detection (immediatly pass to neural net)')
-    uploadedFile = st.file_uploader('Upload image (without face detection)')
+    uploadedFile = st.file_uploader('Upload image (without face detection)', type=['jpg', 'jpeg', 'png'])
+    tempFile = NamedTemporaryFile(delete=False)
     if uploadedFile is not None:
         # Convert the file to an opencv image.
-        fileBytes = np.asarray(bytearray(uploadedFile.read()), dtype=np.uint8)
-        opencvImage = cv2.imdecode(fileBytes, 1)
+        tempFile.write(uploadedFile.getvalue())
+        tempFile.close()
+        opencvImage = cv2.imread(tempFile.name)
 
         st.write('Original Image:')
         st.image(opencvImage, width=224, channels="BGR")

@@ -16,4 +16,4 @@ COPY ./src/model.py model.py
 COPY ./models/haarcascade_frontalface_default.xml models/haarcascade_frontalface_default.xml
 COPY ./models/gfcr_v4.pt models/gfcr_v4.pt
 
-CMD streamlit run site.py
+CMD streamlit run site.py --server.maxUploadSize=10
