@@ -7,7 +7,7 @@ RUN apt-get install 'ffmpeg'\
     'libsm6'\ 
     'libxext6'  -y
 
-RUN pip install streamlit==0.72.0
+RUN pip install streamlit==0.71.0
 RUN pip install Pillow==8.0.1
 RUN pip install opencv-python==4.4.0.46
 
