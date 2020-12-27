@@ -19,13 +19,13 @@ if __name__ == '__main__':
 
 
     st.header('Gender Recognition with face detection')
-    uploadedFile = st.file_uploader('Upload image', type=['jpg', 'jpeg', 'png'])
-    tempFile = NamedTemporaryFile(delete=False)
-    if uploadedFile is not None:
+    uploadedFileFirst = st.file_uploader('Upload image', type=['jpg', 'jpeg', 'png'])
+    tempFileFirst = NamedTemporaryFile(delete=False)
+    if uploadedFileFirst is not None:
         # Convert the file to an opencv image.
-        tempFile.write(uploadedFile.getvalue())
-        tempFile.close()
-        opencvImage = cv2.imread(tempFile.name)
+        tempFileFirst.write(uploadedFileFirst.getvalue())
+        tempFileFirst.close()
+        opencvImage = cv2.imread(tempFileFirst.name)
 
         st.write('Original Image:')
         st.image(opencvImage, width=224, channels="BGR")
@@ -48,13 +48,13 @@ if __name__ == '__main__':
     
 
     st.header('Without Face Detection (immediatly pass to neural net)')
-    uploadedFile = st.file_uploader('Upload image (without face detection)', type=['jpg', 'jpeg', 'png'])
-    tempFile = NamedTemporaryFile(delete=False)
-    if uploadedFile is not None:
+    uploadedFileSecond = st.file_uploader('Upload image (without face detection)', type=['jpg', 'jpeg', 'png'])
+    tempFileSecond = NamedTemporaryFile(delete=False)
+    if uploadedFileSecond is not None:
         # Convert the file to an opencv image.
-        tempFile.write(uploadedFile.getvalue())
-        tempFile.close()
-        opencvImage = cv2.imread(tempFile.name)
+        tempFileSecond.write(uploadedFileSecond.getvalue())
+        tempFileSecond.close()
+        opencvImage = cv2.imread(tempFileSecond.name)
 
         st.write('Original Image:')
         st.image(opencvImage, width=224, channels="BGR")
