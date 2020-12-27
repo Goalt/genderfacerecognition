@@ -17,6 +17,10 @@ if __name__ == '__main__':
     st.title('Gender Face Recognition')
     gfcr = prepare('./models/gfcr_v4.pt', './models/haarcascade_frontalface_default.xml', (48, 48))
 
+    st.text('!!!! TESTING START !!!!')
+    body = '<style>p{color:red;}</style> <p>foo</p>'
+    st.markdown(body, unsafe_allow_html=True)
+    st.text('!!!! Testing END !!!!')
 
     st.header('Gender Recognition with face detection')
     uploadedFileFirst = st.file_uploader('Upload image', type=['jpg', 'jpeg', 'png'])
