@@ -6,6 +6,9 @@ import numpy as np
 from tempfile import NamedTemporaryFile
 
 
+THRESHOLD = 0.41374868
+
+
 @st.cache(hash_funcs={FaceRecognitionPipeline: lambda _: None, GenderRecognitionModelV2: lambda _: None})
 def prepare(modelPath, haarConfFile, inputSize):
     model = torch.load(modelPath, map_location=torch.device('cpu') )
@@ -16,11 +19,6 @@ def prepare(modelPath, haarConfFile, inputSize):
 if __name__ == '__main__':
     st.title('Gender Face Recognition')
     gfcr = prepare('./models/gfcr_v4.pt', './models/haarcascade_frontalface_default.xml', (48, 48))
-
-    st.text('!!!! TESTING START !!!!')
-    body = '<style>p{color:red;}</style> <p>foo</p>'
-    st.markdown(body, unsafe_allow_html=True)
-    st.text('!!!! Testing END !!!!')
 
     st.header('Gender Recognition with face detection')
     uploadedFileFirst = st.file_uploader('Upload image', type=['jpg', 'jpeg', 'png'])
@@ -40,31 +38,15 @@ if __name__ == '__main__':
             st.write('No Faces Found')
         else:
             numberOfImages = res[0].shape[0]
-            st.write('{} Faces Found, Threshold {}'.format(res[0].shape[0], 0.41374868))
+            st.write('{} Faces Found'.format(res[0].shape[0]))
             
             inputImages = []
             caption = []
             for i in range(numberOfImages):
                 inputImages.append(res[0][i][0].numpy())
-                caption.append('{:.3}'.format(res[2][i].item()))
+                if (res[2][i].item() > THRESHOLD):
+                    caption.append('Man {:.2f}%'.format(res[2][i].item() * 100))
+                else:
+                    caption.append('Woman {:.2f}%'.format(100 - res[2][i].item() * 100))
 
             st.image(inputImages, caption=caption, clamp=True, width=100)
-    
-
-    st.header('Without Face Detection (immediatly pass to neural net)')
-    uploadedFileSecond = st.file_uploader('Upload image (without face detection)', type=['jpg', 'jpeg', 'png'])
-    tempFileSecond = NamedTemporaryFile(delete=False)
-    if uploadedFileSecond is not None:
-        # Convert the file to an opencv image.
-        tempFileSecond.write(uploadedFileSecond.getvalue())
-        tempFileSecond.close()
-        opencvImage = cv2.imread(tempFileSecond.name)
-
-        st.write('Original Image:')
-        st.image(opencvImage, width=224, channels="BGR")
-
-        res = gfcr.onlyForwardPass(opencvImage)
-        image = res[0][0][0].numpy()
-        cap = '{:.3}'.format(res[2].item())
-        st.text(cap)
-        st.image(image, caption=cap, width=100)
