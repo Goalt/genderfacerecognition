@@ -3,7 +3,7 @@ This repo contains jupyter notebook (training convolutional dnn) and python file
 
 Test url : gfcr.c0d.ru
 
-![](plots/img1.png)
+<img src="plots/img1.png" width="500" height="500">
 
 ## Task
 
@@ -34,8 +34,9 @@ To detect and crop faces on image cv2.CascadeClassifier was used. Configure file
 After cv2.CascadeClassifier image was passed to CNN with sigmoid function as output.
 ![](plots/acc.png)
 ![](plots/train_loss.png)
-![](plots/roc_auc.png)
-![](plots/gfcr.png)
+<img src="plots/roc_auc.png" width="900" height="500">
+<img src="plots/gfcr.png" width="300" height="500">
+<!-- ![](plots/gfcr.png) -->
 
 
 ## Results
