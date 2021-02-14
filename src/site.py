@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     st.header('Gender Recognition with face detection')
     uploadedFileFirst = st.file_uploader('Upload image', type=['jpg', 'jpeg', 'png'])
-    tempFileFirst = NamedTemporaryFile(delete=False)
+    tempFileFirst = NamedTemporaryFile(delete=True)
     if uploadedFileFirst is not None:
         # Convert the file to an opencv image.
         tempFileFirst.write(uploadedFileFirst.getvalue())

@@ -19,13 +19,12 @@ class FaceRecognitionPipeline():
         self.model = self.model.to(self.device)
 
     def faceDetection(self, image):
-        # return faceBorder
         facesBorder = self.faceCascade.detectMultiScale(image, 1.3, 5)
         faces = []
         for (x,y,w,h) in facesBorder:
             faces.append(image[y:y + h, x:x + w])
         
-        # plt.imshow(faces[0], cmap='gray', vmin=0, vmax=255)
+        # returns faceBorder
         return faces
 
 
@@ -41,7 +40,6 @@ class FaceRecognitionPipeline():
             transforms.ToTensor(),
             transforms.Resize(self.inputSize),
             transforms.Grayscale(num_output_channels=1),
-            # transforms.Normalize((0.1307,), (0.3081,))
         ])
 
         input = []
@@ -54,6 +52,7 @@ class FaceRecognitionPipeline():
         output = torch.sigmoid(output)
         result = torch.round(output)
         
+        # returns input to CNN, class and confidence
         input = input.cpu()
         return (input, result, output)
 
@@ -62,7 +61,6 @@ class FaceRecognitionPipeline():
             transforms.ToTensor(),
             transforms.Resize(self.inputSize),
             transforms.Grayscale(num_output_channels=1),
-            # transforms.Normalize((0.1307,), (0.3081,))
         ])
 
         input = [testTransforms(image)]
