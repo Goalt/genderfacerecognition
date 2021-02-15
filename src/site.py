@@ -26,8 +26,9 @@ if __name__ == '__main__':
     if uploadedFileFirst is not None:
         # Convert the file to an opencv image.
         tempFileFirst.write(uploadedFileFirst.getvalue())
-        tempFileFirst.close()
+        tempFileFirst.flush()
         opencvImage = cv2.imread(tempFileFirst.name)
+        tempFileFirst.close()
 
         st.write('Original Image:')
         st.image(opencvImage, width=224, channels="BGR")
