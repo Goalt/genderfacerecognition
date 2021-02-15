@@ -22,7 +22,7 @@ https://www.kaggle.com/nipunarora8/age-gender-and-ethnicity-face-data-csv
 | Image Size | 48 x 48 |
 | Test/train/val split |  20/70/10 |
 
-## Production Pipeline
+## Project Pipeline
 The project's pipeline could be described in a such way:
 
 Streamlit -> OpenCV (Face detection) -> Pytorch (DNN) -> Streamlit
@@ -32,11 +32,18 @@ To detect and crop faces on image cv2.CascadeClassifier was used. Configure file
 
 ### Pytorch DNN
 After cv2.CascadeClassifier image was passed to CNN with sigmoid function as output.
+
+Train/val accuracy on each epoch:
 ![](plots/acc.png)
+
+Train loss on each epoch:
 ![](plots/train_loss.png)
-<img src="plots/roc_auc.png" width="900" height="500">
-<img src="plots/gfcr.png" width="300" height="500">
-<!-- ![](plots/gfcr.png) -->
+
+ROC curve:
+![](plots/roc_auc.png)
+
+DNN graph:
+![](plots/gfcr.png)
 
 
 ## Results
