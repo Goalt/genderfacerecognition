@@ -50,3 +50,76 @@ if __name__ == '__main__':
                     caption.append('Woman {:.2f}%'.format(100 - res[2][i].item() * 100))
 
             st.image(inputImages, caption=caption, clamp=True, width=100)
+    
+    '''
+    ## Task
+
+    | Parameter     | Value         |
+    | ------------- |:-------------:|
+    | Type | Binary Classification |
+    | Input | Face Image 48 x 48 |
+    | Metric | Accuracy |
+
+    ## Dataset
+    https://www.kaggle.com/nipunarora8/age-gender-and-ethnicity-face-data-csv
+
+    | Parameter     | Value         |
+    | ------------- |:-------------:|
+    | Number of Images | 23.7k |
+    | Image Size | 48 x 48 |
+    | Test/train/val split |  20/70/10 |
+
+    ## Project Pipeline
+    The project's pipeline could be described in a such way:
+
+    Streamlit -> OpenCV (Face detection) -> Pytorch (DNN) -> Streamlit
+
+    ### OpenCV Face detection
+    To detect and crop faces on image cv2.CascadeClassifier was used. Configure file was choosen "haarcascade_frontalface_default" (src.model.FaceRecognitionPipeline).
+
+    After cv2.CascadeClassifier image was passed to CNN with sigmoid function as output.
+
+    ### Pytorch DNN
+    '''
+
+    '''
+    Train/val accuracy on each epoch:
+    '''
+    st.image("plots/acc.png", width=700)
+    '''
+    Train loss on each epoch:
+    '''
+    st.image("plots/train_loss.png", width=700)
+    '''
+    ROC curve:
+    '''
+    st.image("plots/roc_auc.png", width=700)
+    '''
+    DNN graph:
+    '''
+    st.image("plots/gfcr.png", width=300)
+
+    '''
+    ## Results
+    | Parameter     | Value         |
+    | ------------- |:-------------:|
+    | Model | gfcr_v4.pt |
+    | Train | 0.966 |
+    | Val | 0.951 |
+    | Test | 0.944 |
+
+    ## Technologies
+
+    Used packages:
+    1. PyTorch
+    2. OpenCV
+    3. Pandas
+    4. Streamlit
+    5. Docker
+
+    ## Usage Docker
+    ```shell
+    bash docker/docker_build.sh
+    bash docker/docker_run.sh
+    ```
+    '''
