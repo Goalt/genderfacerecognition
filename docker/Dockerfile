@@ -1,10 +1,10 @@
-FROM ufoym/deepo:pytorch-py36-cpu
+FROM jasonrandrews/pytorch-dev
 
 RUN mkdir models
 RUN mkdir plots
 
-RUN apt-get update ##[edited]
-RUN apt-get install 'ffmpeg'\
+RUN sudo apt-get update
+RUN sudo apt-get install 'ffmpeg'\
     'libsm6'\ 
     'libxext6'  -y
 
@@ -17,5 +17,7 @@ COPY ./src/site.py site.py
 COPY ./src/model.py model.py
 COPY ./models/haarcascade_frontalface_default.xml models/haarcascade_frontalface_default.xml
 COPY ./models/gfcr_v4.pt models/gfcr_v4.pt
+
+CMD echo ~/.streamlit/config.toml >> enableCORS = false
 
 CMD streamlit run site.py --server.maxUploadSize=10
