@@ -1,7 +1,7 @@
 # Gender Face recognition (DNN)
 This repo contains jupyter notebook (training convolutional dnn) and python files to deploy model with streamlit and Docker.
 
-Test url : gfcr.c0d.ru
+Test url : gfcr.konkov.xyz
 
 <img src="plots/img1.png" width="500" height="500">
 
