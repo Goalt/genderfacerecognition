@@ -37,9 +37,10 @@ class FaceRecognitionPipeline():
             return (None, None, None)
 
         testTransforms = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Resize(self.inputSize),
+            transforms.ToPILImage(),
             transforms.Grayscale(num_output_channels=1),
+            transforms.Resize(self.inputSize),
+            transforms.ToTensor(),
         ])
 
         input = []
