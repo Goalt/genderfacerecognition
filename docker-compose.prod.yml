@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  app:
+    image: ghcr.io/goalt/GenderFaceRecognition:$IMAGE_VERSION
+    container_name: gfcr
+    restart: always
+    ports: [ "8501:8501" ]

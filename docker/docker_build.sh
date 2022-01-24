@@ -1,1 +1,0 @@
-docker build -t gfcr:latest -f docker/Dockerfile .
