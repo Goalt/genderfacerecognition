@@ -56,7 +56,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/ppc64le
+          platforms: linux/arm64
           push: true
           tags: 
             ${{ steps.repo_slug.outputs.result }}:latest,${{ steps.repo_slug.outputs.result }}:${{ steps.repo_tag.outputs.result }}
